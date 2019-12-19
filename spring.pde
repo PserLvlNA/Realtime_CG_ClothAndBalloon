@@ -8,6 +8,10 @@ class Spring extends VerletSpring3D{
     super(a,b,l,s);
   }
   
+  Spring(Particle a,Particle b,float s){
+    super(a,b,w,s);
+  }
+  
   void display(){
     stroke(255);
     strokeWeight(1);

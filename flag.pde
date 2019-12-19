@@ -95,7 +95,7 @@ void setup(){
       Particle p = new Particle(x,y,0);
       particles[i][j] = p;
       physics.addParticle(p);
-      physics.addBehavior(new AttractionBehavior3D(p, w, -20, 0.01));
+      physics.addBehavior(new AttractionBehavior3D(p, w*1.3, -20, 0.01));
       y = y+w;
     }
     x = x+w;
@@ -115,6 +115,19 @@ void setup(){
         springs.add(s2);
         physics.addSpring(s2);
       }
+      if(i-1>=0 && j!=rows-1){
+        Particle b3 = particles[i-1][j+1];
+        Spring s3 = new Spring(a,b3,0.00001);
+        springs.add(s3);
+        physics.addSpring(s3);
+      }
+      if(i != cols-1 &&j!=rows-1){
+        Particle b4 = particles[i+1][j+1];
+        Spring s4 = new Spring(a,b4,0.00001);
+        springs.add(s4);
+        physics.addSpring(s4);      
+      }
+      
     }
   }
   for (int i = 0; i<15 ; i++){
@@ -163,7 +176,7 @@ void draw(){
   background(51);
   translate(width/2,height/2,0);
   pointLight(255, 255, 255, mouseX-width/2, mouseY-height/2, 300);
-  //ambientLight(255, 255, 255);
+  ambientLight(127,127,127);
   lightSpecular(0, 0, 0);
   //ambient(237, 50, 181);
   shininess(0);
@@ -245,15 +258,22 @@ void draw(){
 
 }
 void mousePressed() {
-  mousePos = new Vec3D(mouseX-width/2, mouseY-height/2,0);
-  mouseAttractor = new AttractionBehavior3D(mousePos, 100, -100);
+  //for (int i = 0; i<5;i++){
+  //  mousePos = new Vec3D(mouseX-width/2, mouseY-height/2,20-i*10);
+  //  mouseAttractor = new AttractionBehavior3D(mousePos, 100, -100,0.01);
+  //  physics.addBehavior(mouseAttractor);
+  //}
+  mousePos = new Vec3D(mouseX-width/2, mouseY-height/2,10);
+  mouseAttractor = new AttractionBehavior3D(mousePos, 100, -100,0.01);
   physics.addBehavior(mouseAttractor);
 }
 void mouseDragged() {
-  mousePos.set(mouseX-width/2, mouseY-height/2,0);
+  mousePos.set(mouseX-width/2, mouseY-height/2,10);
 }
 void mouseReleased() {
-  physics.removeBehavior(mouseAttractor);
+  //for (int i = 0; i<5;i++){
+    physics.removeBehavior(mouseAttractor);
+  //}
 }
 
 //void keyPressed() {

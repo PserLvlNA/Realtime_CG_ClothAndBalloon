@@ -6,7 +6,7 @@ class Balloon extends Particle{
   void display(){
     pushMatrix();
     translate(x,y,z);
-    fill(255,0,0);
+    //fill(255,0,0);
     sphere(50);
     //ambient(0,0,255);
     popMatrix();
